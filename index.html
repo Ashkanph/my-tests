@@ -4,21 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <title>The Honey Framework UI</title>
+    <title>Test capturing image</title>
   </head>
   <body>
-    <input type="file" accept="image/*" capture>
-    <input type="file" accept="image/*" capture="user">
-    <input type="file" accept="image/*" capture="environment">
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <input type="file" accept="image/*" capture onchange='showPicture(event)'>
+    <br />
+    <img id='output' style="height:800px; width:400px;">
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <script>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+        var showPicture = function(file) {
+            var input = file.target;
+
+            var reader = new FileReader();
+            reader.onload = function(){
+                var dataURL = reader.result;
+                var output = document.getElementById('output');
+                output.src = dataURL;
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+
+    </script>
   </body>
 </html>
